@@ -14,17 +14,17 @@ function convertToGeoJSON(data) {
         properties: {
                     title: data[i]["name"],
                     description: data[i]["description"],
-                    'marker-color': data[i]["hexcolor"],
+                    'marker-color': '#336699',
                     'marker-size': 'large',
-                    'marker-symbol': data[i]["markersymbol"],
+                    'marker-symbol': data[i]["marker-symbol"],
                 },
                 geometry: {
                     type: 'Point',
-                    coordinates: [data[i]["long"], data[i]["lat"]]
+                    coordinates: [data[i]["longitude"], data[i]["latitude"]]
                 }
         }
-        if((!isNaN(data[i]["lat"]) && !isNaN(data[i]["long"])) &&
-                !(data[i]["lat"]==="" && data[i]["long"]==="") ) {
+        if((!isNaN(data[i]["latitude"]) && !isNaN(data[i]["longitude"])) &&
+                !(data[i]["latitude"]==="" && data[i]["longitude"]==="") ) {
             places.push(place);
         }
     }
@@ -43,12 +43,11 @@ function setupMap(geo) {
 
 L.mapbox.accessToken = 'pk.eyJ1IjoiamVmZnN0ZXJuIiwiYSI6IlAzRFFiN0EifQ.mNWvayrLEw9wULuq0sopyA';
 var map = L.mapbox.map('map', 'jeffstern.6878aba5')
-  .setView([40.7127, -74.0059], 9);
+  .setView([40.7120, -73.9940], 13);
 var myLayer = L.mapbox.featureLayer().addTo(map);
 
 
 
-/* Everything below this is only necessary for that fancy sidebar
 
 
 
@@ -134,7 +133,7 @@ function populateListing() {
         if ((name !== "" && latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180)) {
             $.ajax({
                 url: "https://docs.google.com/spreadsheets/d/1gF9_kZduMi_dSF0q9BZyOqTStoNaxXYeMd9pfbnz-Wc/pubhtml",
-                data: {"entry.531694062" : name, "entry.291569454" : description, "entry.2049661042": latitude, "entry.1397506178": longitude, "entry.296423143": markersymbol, "entry.1515501526": hexcolor},
+                data: {"entry.531694062" : name, "entry.291569454" : description, "entry.2049661042": latitude, "entry.1397506178": longitude, "entry.296423143": markersymbol},
                 type: "POST",
                 dataType: "xml",
                 crossDomain: 'true',
@@ -151,6 +150,4 @@ function populateListing() {
             alert("There are errors with your form submission. Latitudes are between -90 and 90. Long between -180 and 180. :(");
         }
     }
-
-*/
 
