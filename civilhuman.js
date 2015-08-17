@@ -122,32 +122,31 @@ function populateListing() {
         info.appendChild(listing);
     });
 }
- 
-    function postContactToGoogle(){
-        var name = $('#name').val();
-        var description = $('#description').val();
-        var latitude = $('#lat').val();
+ 
+    function postContactToGoogle(){
+        var name = $('#name').val();
+        var description = $('#description').val();
+        var latitude = $('#lat').val();
         var longitude = $('#long').val();
         var markersymbol = "park";
         var hexcolor = "#" + $('#color').val();
-        if ((name !== "" && latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180)) {
-            $.ajax({
-                url: "https://docs.google.com/spreadsheets/d/1gF9_kZduMi_dSF0q9BZyOqTStoNaxXYeMd9pfbnz-Wc/pubhtml",
-                data: {"entry.531694062" : name, "entry.291569454" : description, "entry.2049661042": latitude, "entry.1397506178": longitude, "entry.296423143": markersymbol},
-                type: "POST",
-                dataType: "xml",
+        if ((name !== "" && latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180)) {
+            $.ajax({
+                url: "https://docs.google.com/spreadsheets/d/1gF9_kZduMi_dSF0q9BZyOqTStoNaxXYeMd9pfbnz-Wc/pubhtml",
+                data: {"entry.531694062" : name, "entry.291569454" : description, "entry.2049661042": latitude, "entry.1397506178": longitude, "entry.296423143": markersymbol},
+                type: "POST",
+                dataType: "xml",
                 crossDomain: 'true',
-                statusCode: {
-                    0: function (){
+                statusCode: {
+                    0: function (){
                         setTimeout(function () { window.location.reload(); }, 10)
-                        //Success message
-                    }
-                }
-            });
-        } 
-        else {
-            //Error message
+                        //Success message
+                    }
+                }
+            });
+        } 
+        else {
+            //Error message
             alert("There are errors with your form submission. Latitudes are between -90 and 90. Long between -180 and 180. :(");
-        }
-    }
-
+        }
+    }
